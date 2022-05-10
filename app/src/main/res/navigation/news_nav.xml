@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_nav"
+    app:startDestination="@id/breakingNeFragment">
+
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.newstoday.ui.fragments.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" >
+        <argument
+            android:name="article"
+            app:argType="com.example.newstoday.models.Article" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/breakingNeFragment"
+        android:name="com.example.newstoday.ui.fragments.BreakingNeFragment"
+        android:label="fragment_breaking_ne"
+        tools:layout="@layout/fragment_breaking_ne" >
+        <action
+            android:id="@+id/action_breakingNeFragment_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/savedNeFragment"
+        android:name="com.example.newstoday.ui.fragments.SavedNeFragment"
+        android:label="fragment_saved_ne"
+        tools:layout="@layout/fragment_saved_ne" >
+        <action
+            android:id="@+id/action_savedNeFragment_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchNeFragment"
+        android:name="com.example.newstoday.ui.fragments.SearchNeFragment"
+        android:label="fragment_search_ne"
+        tools:layout="@layout/fragment_search_ne" >
+        <action
+            android:id="@+id/action_searchNeFragment_to_articleFragment"
+            app:destination="@id/articleFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out"/>
+    </fragment>
+</navigation>
