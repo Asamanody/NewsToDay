@@ -38,12 +38,28 @@ constructor(private val newsRepository: NewsRepository)
 
 
     fun getBreakingNews(countryCode: String) = viewModelScope.launch(Dispatchers.IO) {
-      safeBreakingNewsCall(countryCode)
+        val response = newsRepository.getBreakingNews(countryCode)
+        if(response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                breakingNews.postValue(Resource.Success(resultResponse))
+            }
+        }
+        else
+            breakingNews.postValue(Resource.Error(response.message()))
     }
 
     fun searchNews(searchQuery: String) = viewModelScope.launch(Dispatchers.IO) {
-        safeSearchNewsCall(searchQuery)
+        val response = newsRepository.searchNews(searchQuery)
+        if(response.isSuccessful) {
+            response.body()?.let { resultResponse ->
+                searchNews.postValue(Resource.Success(resultResponse))
+            }
+        }
+        else
+            breakingNews.postValue(Resource.Error(response.message()))
     }
+
+
     fun saveArticle(article: Article) = viewModelScope.launch {
         newsRepository.upsert(article)
     }
@@ -56,16 +72,16 @@ constructor(private val newsRepository: NewsRepository)
 
 
 
-    fun   handleBreakingNewsResponce(response: Response<NewsResponse>) :Resource<NewsResponse> {
+  /*  fun   handleBreakingNewsResponce(response: Response<NewsResponse>) :Resource<NewsResponse> {
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success( resultResponse)
             }
         }
         return Resource.Error(response.message())
-    }
+    }*/
 
-    private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
+   /* private fun handleSearchNewsResponse(response: Response<NewsResponse>) : Resource<NewsResponse> {
         if(response.isSuccessful) {
             response.body()?.let { resultResponse ->
 
@@ -74,12 +90,12 @@ constructor(private val newsRepository: NewsRepository)
         }
         return Resource.Error(response.message())
     }
-
-    private suspend fun safeSearchNewsCall(searchQuery: String) {
+*/
+   /* private suspend fun safeSearchNewsCall(searchQuery: String) {
         searchNews.postValue(Resource.Loading())
         try {
             if(hasInternetConnection(NewsApplication())) {
-                val response = newsRepository.searchNews(searchQuery, searchNewsPage)
+                val response = newsRepository.searchNews(searchQuery)
                 searchNews.postValue(handleSearchNewsResponse(response))
             } else {
                 searchNews.postValue(Resource.Error("No internet connection"))
@@ -91,12 +107,12 @@ constructor(private val newsRepository: NewsRepository)
             }
         }
     }
-
-    private suspend fun safeBreakingNewsCall(countryCode: String) {
+*/
+   /* private suspend fun safeBreakingNewsCall(countryCode: String) {
         breakingNews.postValue(Resource.Loading())
         try {
             if(hasInternetConnection(NewsApplication())) {
-                val response = newsRepository.getBreakingNews(countryCode, brekingNewsPage)
+                val response = newsRepository.getBreakingNews(countryCode)
                 breakingNews.postValue(handleBreakingNewsResponce(response))
             } else {
                 breakingNews.postValue(Resource.Error("No internet connection"))
@@ -107,7 +123,7 @@ constructor(private val newsRepository: NewsRepository)
                 else -> breakingNews.postValue(Resource.Error("Conversion Error"))
             }
         }
-    }
+    }*/
 
 
     private fun hasInternetConnection(application: NewsApplication): Boolean {

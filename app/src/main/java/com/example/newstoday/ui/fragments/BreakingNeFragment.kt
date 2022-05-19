@@ -23,14 +23,14 @@ import kotlinx.android.synthetic.main.fragment_breaking_ne.*
 @AndroidEntryPoint
 class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
 
-    private val viewModel by viewModels<NewsViewModel>()
+   // private val viewModel by viewModels<NewsViewModel>()
     lateinit var newsAdapter: NewsAdapter
 
     val TAG = "BreakingNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
         setupRecyclerView()
 
         // pass the article to the next fragment by safe arg

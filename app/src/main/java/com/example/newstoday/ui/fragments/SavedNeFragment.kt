@@ -23,10 +23,13 @@ import kotlinx.android.synthetic.main.fragment_saved_ne.*
 @AndroidEntryPoint
 class SavedNeFragment : Fragment(R.layout.fragment_saved_ne) {
     lateinit var newsAdapter: NewsAdapter
-    private val viewModel by viewModels<NewsViewModel>()
+   // private val viewModel by viewModels<NewsViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+       val viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
+
         setupRecyclerView()
+
 
         newsAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {

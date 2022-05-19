@@ -27,13 +27,14 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchNeFragment : Fragment(R.layout.fragment_search_ne) {
-    private val viewModel by viewModels<NewsViewModel>()
+   // private val viewModel by viewModels<NewsViewModel>()
 
     lateinit var newsAdapter: NewsAdapter
     val TAG = "SearchNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
 
         setupRecyclerView()
 

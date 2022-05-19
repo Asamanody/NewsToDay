@@ -12,8 +12,6 @@ interface NewsApiService {
     suspend fun getBreakingNews(
         @Query("country")
         countryCode: String = "us",
-        @Query("page")
-        pageNumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
     ): Response<NewsResponse>
@@ -22,8 +20,6 @@ interface NewsApiService {
     suspend fun searchForNews(
         @Query("q")
         searchQuery: String,
-        @Query("page")
-        pageNumber: Int = 1,
         @Query("apiKey")
         apiKey: String = API_KEY
     ): Response<NewsResponse>

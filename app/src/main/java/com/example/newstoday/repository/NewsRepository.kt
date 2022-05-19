@@ -10,11 +10,11 @@ class NewsRepository
 @Inject
 constructor( val newsApiService: NewsApiService, val dao : Dao) {
 
-    suspend fun getBreakingNews(countryCode: String, pageNumber: Int) =
-      newsApiService.getBreakingNews(countryCode, pageNumber)
+    suspend fun getBreakingNews(countryCode: String) =
+      newsApiService.getBreakingNews(countryCode)
 
-    suspend fun searchNews(searchQuery: String, pageNumber: Int) =
-        newsApiService.searchForNews(searchQuery, pageNumber)
+    suspend fun searchNews(searchQuery: String) =
+        newsApiService.searchForNews(searchQuery)
 
     suspend fun upsert(article: Article) = dao.upsert(article)
 

@@ -17,13 +17,25 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.internal.managers.ApplicationComponentManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideHttpClient(): OkHttpClient {
+        return OkHttpClient
+            .Builder()
+            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .build()
+    }
 
     @Singleton
     @Provides
@@ -34,17 +46,18 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitBuilder(gsonBuilder: Gson): Retrofit.Builder {
+    fun provideRetrofitBuilder(okHttpClient: OkHttpClient, gsonBuilder: Gson): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideApiService(retrofitBuilder: Retrofit.Builder): NewsApiService {
-        return retrofitBuilder
-            .build()
+    fun provideApiService(retrofit: Retrofit): NewsApiService {
+        return retrofit
             .create(NewsApiService::class.java)
     }
 

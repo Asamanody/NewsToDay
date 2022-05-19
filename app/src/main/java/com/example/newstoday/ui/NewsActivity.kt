@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_news.*
 class NewsActivity : AppCompatActivity(R.layout.activity_news) {
 
     private val viewModel : NewsViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
