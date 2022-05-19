@@ -11,6 +11,8 @@ class SpalshScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spalsh_screen)
 
+        supportActionBar?.hide()
+
 
 
         val handler = Handler()
