@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.newstoday.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -23,12 +25,13 @@ class NewsActivity : AppCompatActivity(R.layout.activity_news) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-         val actionBar= supportActionBar
-          actionBar?.hide()
+
 
        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+        val appBarConfiguration= AppBarConfiguration(setOf(R.id.breakingNews,R.id.savedNews,R.id.searchNews,R.id.article))
         val navController = findNavController(R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
+        setupActionBarWithNavController(navController,appBarConfiguration)
 
 
 
