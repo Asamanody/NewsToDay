@@ -25,6 +25,7 @@ class NewsActivity : AppCompatActivity(R.layout.activity_news) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+// bottom navigation with navigation componant
 
 
        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
@@ -32,6 +33,8 @@ class NewsActivity : AppCompatActivity(R.layout.activity_news) {
         val navController = findNavController(R.id.fragmentContainerView)
         bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController,appBarConfiguration)
+
+        //change language 
 
 
 

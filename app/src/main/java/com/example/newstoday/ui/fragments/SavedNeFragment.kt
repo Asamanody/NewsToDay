@@ -41,8 +41,6 @@ class SavedNeFragment : Fragment(R.layout.fragment_saved_ne) {
             )
         }
 
-
-
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
@@ -75,11 +73,6 @@ class SavedNeFragment : Fragment(R.layout.fragment_saved_ne) {
         viewModel.getSavedNews().observe(viewLifecycleOwner, Observer { articles ->
             newsAdapter.differ.submitList(articles)
         })
-
-
-
-
-
 
     }
 

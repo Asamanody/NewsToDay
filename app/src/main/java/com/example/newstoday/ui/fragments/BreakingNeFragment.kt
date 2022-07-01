@@ -1,5 +1,6 @@
 package com.example.newstoday.ui.fragments
 
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_breaking_ne.*
 
 @AndroidEntryPoint
-class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
+class BreakingNeFragment : androidx.fragment.app.Fragment(R.layout.fragment_breaking_ne) {
 
    // private val viewModel by viewModels<NewsViewModel>()
     lateinit var newsAdapter: NewsAdapter
@@ -32,6 +33,7 @@ class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
         super.onViewCreated(view, savedInstanceState)
         val viewModel = ViewModelProvider(requireActivity()).get(NewsViewModel::class.java)
         setupRecyclerView()
+
 
         // pass the article to the next fragment by safe arg
         newsAdapter.setOnItemClickListener {
@@ -47,7 +49,7 @@ class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Resource.Success -> {
-                    hideProgressBar()
+
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
 
@@ -55,7 +57,7 @@ class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
                     }
                 }
                 is Resource.Error -> {
-                    hideProgressBar()
+
 
                     response.message?.let { message ->
                         Toast.makeText(activity, "An error occured: $message", Toast.LENGTH_LONG).show()
@@ -63,7 +65,7 @@ class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
                     }
                 }
                 is Resource.Loading -> {
-                    showProgressBar()
+
                 }
             }
         })
@@ -72,21 +74,10 @@ class BreakingNeFragment : Fragment(R.layout.fragment_breaking_ne) {
 
     }
 
-
-    private fun hideProgressBar() {
-        paginationProgressBar.visibility = View.INVISIBLE
-
-    }
-
-    private fun showProgressBar() {
-        paginationProgressBar.visibility = View.VISIBLE
-
-    }
-
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()
-        rvBreakingNews.apply {
-            adapter = newsAdapter
+            rvBreakingNews.apply {
+                adapter = newsAdapter
             layoutManager = LinearLayoutManager(activity)
           //  addOnScrollListener(this@BreakingNewsFragment.scrollListener)
         }
